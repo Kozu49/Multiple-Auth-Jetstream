@@ -1,7 +1,7 @@
 <?php
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainUserController;
-// use App\Http\Controllers\MainAdminController;
+use App\Http\Controllers\MainAdminController;
 
 
 use Illuminate\Support\Facades\Route;
@@ -45,3 +45,12 @@ Route::get('/user/logout',[MainUserController::class,'logout'])->name('user.logo
 Route::get('/user/profile',[MainUserController::class,'UserProfile'])->name('user.profile');
 Route::get('/user/profile/edit',[MainUserController::class,'UserProfileEdit'])->name('profile.edit');
 Route::post('/user/profile/store',[MainUserController::class,'UserProfileStore'])->name('profile.store');
+Route::get('/user/password',[MainUserController::class,'UserPassword'])->name('user.password');
+Route::post('/user/password/update',[MainUserController::class,'UserPasswordUpdate'])->name('password.update');
+
+//Admin All Routes
+Route::get('/admin/profile',[MainAdminController::class,'AdminProfile'])->name('admin.profile');
+Route::get('/admin/profile/edit',[MainAdminController::class,'AdminProfileEdit'])->name('admin.profile.edit');
+Route::post('/admin/profile/store',[MainAdminController::class,'AdminProfileStore'])->name('admin.profile.store');
+
+
