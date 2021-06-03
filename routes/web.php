@@ -1,5 +1,8 @@
 <?php
 use App\Http\Controllers\AdminController;
+use App\Http\Controllers\MainUserController;
+// use App\Http\Controllers\MainAdminController;
+
 
 use Illuminate\Support\Facades\Route;
 /*
@@ -26,11 +29,19 @@ Route::group(['prefix'=>'admin','middleware'=>['admin:admin']],function(){
 });
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
-    return view('dashboard');
+    return view('admin.index');
 })->name('dashboard');
 
 
 
 Route::middleware(['auth:sanctum,web', 'verified'])->get('/dashboard', function () {
-    return view('dashboard');
+    return view('user.index');
 })->name('dashboard');
+
+Route::get('/admin/logout',[AdminController::class,'destroy'])->name('admin.logout');
+
+//User All Routes
+Route::get('/user/logout',[MainUserController::class,'logout'])->name('user.logout');
+Route::get('/user/profile',[MainUserController::class,'UserProfile'])->name('user.profile');
+Route::get('/user/profile/edit',[MainUserController::class,'UserProfileEdit'])->name('profile.edit');
+Route::post('/user/profile/store',[MainUserController::class,'UserProfileStore'])->name('profile.store');
