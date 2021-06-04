@@ -2,6 +2,7 @@
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\MainUserController;
 use App\Http\Controllers\MainAdminController;
+use App\Models\Admin;
 
 
 use Illuminate\Support\Facades\Route;
@@ -29,7 +30,8 @@ Route::group(['prefix'=>'admin','middleware'=>['admin:admin']],function(){
 });
 
 Route::middleware(['auth:sanctum,admin', 'verified'])->get('/admin/dashboard', function () {
-    return view('admin.index');
+    $admin=Admin::find(1);
+    return view('admin.index',['admin'=>$admin]);
 })->name('dashboard');
 
 
@@ -52,5 +54,8 @@ Route::post('/user/password/update',[MainUserController::class,'UserPasswordUpda
 Route::get('/admin/profile',[MainAdminController::class,'AdminProfile'])->name('admin.profile');
 Route::get('/admin/profile/edit',[MainAdminController::class,'AdminProfileEdit'])->name('admin.profile.edit');
 Route::post('/admin/profile/store',[MainAdminController::class,'AdminProfileStore'])->name('admin.profile.store');
+Route::get('/admin/password',[MainAdminController::class,'AdminPassword'])->name('admin.password');
+Route::post('/admin/password/update',[MainAdminController::class,'AdminPasswordUpdate'])->name('admin.password.update');
+
 
 
